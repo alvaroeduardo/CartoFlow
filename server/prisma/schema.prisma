@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Caixa {
+  id         String      @id @default(uuid())
+  cashValue  Decimal?
+  sealValue  Decimal?
+  closed     Boolean     @default(false)
+  createdAt  DateTime    @default(now())
+  finishedIn DateTime?
+  Transacao  Transacao[]
+}
+
+model Categoria {
+  id        String      @id @default(uuid())
+  title     String
+  Transacao Transacao[]
+}
+
+model Transacao {
+  id          String    @id @default(uuid())
+  idCaixa     String
+  caixa       Caixa     @relation(fields: [idCaixa], references: [id])
+  idCategoria String
+  categoria   Categoria @relation(fields: [idCategoria], references: [id])
+  description String
+  input       Boolean
+  value       Decimal
+  createdAt   DateTime  @default(now())
+}

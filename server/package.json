@@ -1,0 +1,33 @@
+{
+  "name": "cartoflow",
+  "version": "1.0.0",
+  "description": "O CartoFlow é uma plataforma intuitiva e eficiente projetada para simplificar e otimizar o controle de caixa em cartórios. Desenvolvido para funcionar perfeitamente em ambientes locais e com equipes reduzidas, o CartoFlow oferece uma solução completa para o gerenciamento financeiro preciso e transparente.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alvaroeduardo/CartoFlow.git"
+  },
+  "author": "Álvaro Eduardo Silva",
+  "license": "CC BY-NC-ND 1.0",
+  "bugs": {
+    "url": "https://github.com/alvaroeduardo/CartoFlow/issues"
+  },
+  "homepage": "https://github.com/alvaroeduardo/CartoFlow#readme",
+  "devDependencies": {
+    "@prisma/client": "^5.9.1",
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^20.11.17",
+    "prisma": "^5.9.1",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "dotenv": "^16.4.4",
+    "fastify": "^4.26.1",
+    "zod": "^3.22.4"
+  }
+}
