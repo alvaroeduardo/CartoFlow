@@ -4,19 +4,24 @@ import { z } from "zod";
 
 export async function caixa(app: FastifyInstance) {
     app.get('/caixas', async (req, res) => {
-        const paramsSchema = z.object({
-            take: z.number().optional(),
-            skip: z.number().optional()
-        });
-
-        const { take, skip } = paramsSchema.parse(req.query);
-
-        const caixas = await prisma.caixa.findMany({
-            take: take ? take : 10,
-            skip: skip ? skip : 1
-        });
+        const caixas = await prisma.caixa.findMany();
 
         return res.code(200).send(caixas);
+    });
+
+    app.get('/caixa', async (req, res) => {
+        const caixa = await prisma.caixa.findFirst({
+            where: { closed: false },
+            include: {
+                Transacao: {
+                    include: {
+                        categoria: true
+                    }
+                }
+            }
+        });
+
+        return res.code(200).send(caixa);
     });
 
     app.get('/caixas/:idCaixa', async (req, res) => {
@@ -79,6 +84,7 @@ export async function caixa(app: FastifyInstance) {
             data: {
                 cashValue,
                 sealValue,
+                closed: true,
                 finishedIn: new Date()
             }
         });

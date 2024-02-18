@@ -9,7 +9,7 @@ export async function transacao(app: FastifyInstance) {
             idCategoria: z.string(),
             description: z.string(),
             input: z.boolean(),
-            value: z.number()
+            value: z.number()            
         });
 
         const { idCaixa } = paramsSchema.parse(req.params);
@@ -23,8 +23,8 @@ export async function transacao(app: FastifyInstance) {
             where: { id: idCategoria }
         });
 
-        if(!caixa) return res.code(400).send({ mensagem: "Caixa não encontrado." });
-        if(!categoria) return res.code(400).send({ mensagem: "Categoria não encontrada" });
+        if (!caixa) return res.code(400).send({ mensagem: "Caixa não encontrado." });
+        if (!categoria) return res.code(400).send({ mensagem: "Categoria não encontrada" });
 
         const transacao = await prisma.transacao.create({
             data: { idCaixa, idCategoria, input, value, description }
@@ -45,10 +45,10 @@ export async function transacao(app: FastifyInstance) {
             where: { id: idTransacao }
         });
 
-        if(!transacao) return res.code(400).send({ mensagem: "Transação não encontrada." });
+        if (!transacao) return res.code(400).send({ mensagem: "Transação não encontrada." });
 
         await prisma.transacao.delete({
-             where: { id: transacao.id }
+            where: { id: transacao.id }
         });
 
         return res.code(200).send({ mensagem: "Transação excluída com sucesso." });

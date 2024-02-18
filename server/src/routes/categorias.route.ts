@@ -3,6 +3,12 @@ import { prisma } from "../utils/prisma";
 import { z } from "zod";
 
 export async function categoria(app: FastifyInstance) {
+    app.get('/categorias', async (req, res) => {
+        const categorias = await prisma.categoria.findMany();
+
+        return categorias
+    })
+
     app.post('/categorias', async (req, res) => {
         const bodySchema = z.object({ title: z.string() });
         
